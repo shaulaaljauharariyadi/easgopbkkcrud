@@ -25,6 +25,9 @@ mengonfigurasi CRUD sehingga page kategori dapat melakukan perintah CRUD
 <img src="easpbkkcrud/images/uicategory2.png" alt="Foto Keluarga" width="750"/>
 <br>
 <br>
+<img src="easpbkkcrud/images/deletecategory.png" alt="Foto Keluarga" width="750"/>
+<br>
+<br>
 <img src="easpbkkcrud/images/databasecategory.png" alt="Foto Keluarga" width="750"/>
 <br>
 <br>
