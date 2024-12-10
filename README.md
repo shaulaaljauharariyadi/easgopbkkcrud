@@ -73,7 +73,17 @@ Delete Product
 <br>
 <img width="1280" alt="deleted product" src="https://github.com/user-attachments/assets/3261e3f1-3981-4585-b2c0-7b356fbd259b">
 
-
+## 08/12/2024 update frontend UI dan setting GIN
+menerapkan frontend dan GIN untuk routing webpage
+<br>
+<br>
+<img src="easpbkkcrud/images/homeUIFE.png" alt="Foto Keluarga" width="750"/>
+<br>
+<br>
+<img src="easpbkkcrud/images/productsUIFE.png" alt="Foto Keluarga" width="750"/>
+<br>
+<br>
+<img src="easpbkkcrud/images/UICategoryFE.png" alt="Foto Keluarga" width="750"/>
 
 
 
