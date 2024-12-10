@@ -1,33 +1,30 @@
 package main
 
 import (
-	"easpbkkcrud/config"
-	"easpbkkcrud/controllers/categorycontroller"
-	"easpbkkcrud/controllers/homecontroller"
-	"easpbkkcrud/controllers/productcontroller"
+	"easpbkkcrudnew/easpbkkcrud/controllers"
+	"easpbkkcrudnew/easpbkkcrud/initializers"
 	"log"
-	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	config.ConnectDB()
+	initializers.ConnectDatabase()
 
-	//1.homepage
-	http.HandleFunc("/", homecontroller.Welcome)
+	router := gin.Default()
 
-	//2. categories
-	http.HandleFunc("/categories", categorycontroller.Index)
-	http.HandleFunc("/categories/add", categorycontroller.Add)
-	http.HandleFunc("/categories/edit", categorycontroller.Edit)
-	http.HandleFunc("/categories/delete", categorycontroller.Delete)
+	router.LoadHTMLGlob("views/*")
 
-	//Products
-	http.HandleFunc("/products", productcontroller.Index)
-	http.HandleFunc("/products/add", productcontroller.Add)
-	http.HandleFunc("/products/detail", productcontroller.Detail)
-	http.HandleFunc("/products/edit", productcontroller.Edit)
-	http.HandleFunc("/products/delete", productcontroller.Delete)
+	router.GET("/homepage", controllers.Welcome)
 
-	log.Println("server running on port 8080")
-	http.ListenAndServe(":8080", nil)
+	router.GET("/categorypage", controllers.CategoryPage) // Index
+	router.GET("/addcategory", controllers.AddCategory)   // Add (GET)
+	router.POST("/addcategory", controllers.AddCategory)  // Add (POST)
+
+	router.GET("/productpage", controllers.ProductPage) // Index
+	router.GET("/addproduct", controllers.AddProduct)   // Add (GET)
+	router.POST("/addproduct", controllers.AddProduct)  // Add (POST)
+
+	log.Println("Server running on port 8080")
+	router.Run(":8080")
 }
