@@ -7,8 +7,6 @@ type Product struct {
 	Category    Category `json:"category" gorm:"foreignkey:category_id;references:id;constraint:OnDelete:CASCADE,OnUpdate:CASCADE"`
 	Stock       int      `json:"stock" gorm:"not null"`
 	Description string   `json:"description" gorm:"not null"`
-	// CreatedAt   time.Time `json:"createdat" gorm:"not null"`
-	// UpdatedAt   time.Time `json:"updatedat" gorm:"not null"`
 }
 
 func (Product) TableName() string {

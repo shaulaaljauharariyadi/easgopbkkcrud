@@ -20,27 +20,22 @@ func CategoryPage(c *gin.Context) {
 	}
 
 	log.Println("Categories:", categories)
-	// Kirim data ke template HTML
+
 	c.HTML(http.StatusOK, "categorypage.html", gin.H{
-		"category": categories,
+		"products": categories,
 	})
 }
 
 func AddCategory(c *gin.Context) {
 	if c.Request.Method == "GET" {
-		// Render the "addcategory" page
 		c.HTML(200, "addcategory.html", gin.H{
 			"title": "Add Category",
 		})
 	} else if c.Request.Method == "POST" {
-		// Handle the form submission
 		name := c.PostForm("name")
-		// currentTime := time.Now()
 
 		categories := models.Category{
 			Name: string(name),
-			// CreatedAt: currentTime,
-			// UpdatedAt: currentTime,
 		}
 
 		result := initializers.DB.Create(&categories)
@@ -54,45 +49,45 @@ func AddCategory(c *gin.Context) {
 	}
 }
 
-// func Edit(c *gin.Context) {
-// 	if c.Request.Method == http.MethodGet {
-// 		id, err := strconv.Atoi(c.Query("id"))
-// 		if err != nil {
-// 			c.AbortWithStatus(http.StatusBadRequest)
-// 			return
-// 		}
+func EditCategory(c *gin.Context) {
+	if c.Request.Method == "GET" {
+		id := c.Param("id")
+		var category models.Category
 
-// 		category := categorymodel.Detail(id)
-// 		c.HTML(http.StatusOK, "category/edit.html", gin.H{
-// 			"category": category,
-// 		})
-// 		return
-// 	}
+		if err := initializers.DB.First(&category, id).Error; err != nil {
+			log.Println("Error fetching category:", err)
+			c.JSON(http.StatusNotFound, gin.H{"error": "Category not found"})
+			return
+		}
 
-// 	id, _ := strconv.Atoi(c.PostForm("id"))
-// 	var category entities.Category
-// 	category.Name = c.PostForm("name")
-// 	category.UpdatedAt = time.Now()
+		c.HTML(http.StatusOK, "editcategory.html", gin.H{
+			"category": category,
+		})
+		return
+	}
 
-// 	if !categorymodel.Update(id, category) {
-// 		c.Redirect(http.StatusSeeOther, c.Request.Referer())
-// 		return
-// 	}
+	if c.Request.Method == "POST" {
+		id := c.PostForm("id")
+		name := c.PostForm("name")
 
-// 	c.Redirect(http.StatusSeeOther, "/categories")
-// }
+		if err := initializers.DB.Model(&models.Category{}).Where("id = ?", id).Update("name", name).Error; err != nil {
+			log.Println("Error updating category:", err)
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update category"})
+			return
+		}
 
-// func Delete(c *gin.Context) {
-// 	id, err := strconv.Atoi(c.Query("id"))
-// 	if err != nil {
-// 		c.AbortWithStatus(http.StatusBadRequest)
-// 		return
-// 	}
+		c.Redirect(http.StatusFound, "/categorypage")
+	}
+}
 
-// 	if err := categorymodel.Delete(id); err != nil {
-// 		c.AbortWithStatus(http.StatusInternalServerError)
-// 		return
-// 	}
+func DeleteCategory(c *gin.Context) {
+	id := c.Param("id")
 
-// 	c.Redirect(http.StatusSeeOther, "/categories")
-// }
+	if err := initializers.DB.Delete(&models.Category{}, id).Error; err != nil {
+		log.Println("Error deleting category:", err)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to delete category"})
+		return
+	}
+
+	c.Redirect(http.StatusFound, "/categorypage")
+}
