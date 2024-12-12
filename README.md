@@ -5,7 +5,8 @@
 | Shaula Aljauhara Riyadi | 5025201265 | PBKK D |
 | Bryant Nathaniel Tanujaya | 5025221175 | PBKK D |
 
-Web Demo link : [https://youtu.be/RceCH34CbsQ](https://youtu.be/RceCH34CbsQ)
+Web Demo link : [https://youtu.be/OhYV2s0WwbI](https://youtu.be/OhYV2s0WwbI)
+
 ## Home Page
 <img width="1279" alt="HomePage" src="https://github.com/user-attachments/assets/be5cc8c1-4f59-44a5-baec-e7ef19a54cd1">
 
